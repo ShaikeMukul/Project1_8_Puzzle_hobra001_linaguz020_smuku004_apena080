@@ -1,1 +1,2 @@
-# Project1_8_Puzzle_-hobra001_linaguz020_smuku004_apena080-
+# The Eight Puzzle
+Authors: [Angelina Guzman](https://github.com/linaguz020), [Shaike Mukul](https://github.com/ShaikeMukul), [Amina Penafiel](https://github.com/veritasia), [Aryan Obrai](https://github.com/Aryan-Obrai)
