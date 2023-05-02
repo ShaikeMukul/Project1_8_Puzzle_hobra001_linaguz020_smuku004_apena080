@@ -1,8 +1,13 @@
+from uniform_cost import UniformCost
+from misplaced_tile import MisplacedTile
+from euclidean_distance import EuclideanDistance
+
 class Problem:
     def __init__(self):
         self.student_id = "xxx"
         self.puzzle = []
         self.goal = ""
+        self.uniform_cost = UniformCost()
 
     def welcome(self):
         print(f"Welcome to {self.student_id} 8 puzzle solver\n") #change xxx this to your student ID
@@ -16,6 +21,12 @@ class Problem:
             self.custom_puzzle()
         else:
             print("Invalid choice")
+
+    def default_puzzle(self):
+        dp = [['1', '2', '3'],
+              ['4', '8', '0'],
+              ['7', '6', '5']]
+        self.puzzle = dp
 
     def custom_puzzle(self):
         print("Enter your puzzle, use a zero to represent the blank\n")
@@ -35,7 +46,12 @@ class Problem:
         print("3. A* with the Euclidean Distance heuristic")
         choice = input()
         if choice == "1":
-            self.uniform_cost_search()
+            str_puzzle = ""	
+            for p in self.puzzle:	
+                str_puzzle += "".join(p)	
+            cost = self.uniform_cost.uniform_cost_search(str_puzzle, self.goal)	
+            if cost == -1:	
+                print("No solution found")
         elif choice == "2":
             self.a_star_with_misplaced_tile_heuristic()
         elif choice == "3":
@@ -43,21 +59,8 @@ class Problem:
         else:
             print("Invalid choice")
 
-    def default_puzzle(self):
-        print("default puzzle")
-
-    def uniform_cost_search(self):
-        print("uniform cost search")
-
-    def a_star_with_misplaced_tile_heuristic(self):
-        print("a* with misplaced tile heuristic")
-
-    def a_star_with_euclidean_distance_heuristic(self):
-        print("a* with euclidean distance heuristic")
-
     def get_goal(self):
         self.goal = "123456780"
-
 
 
 
