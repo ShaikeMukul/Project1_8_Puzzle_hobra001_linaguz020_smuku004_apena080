@@ -57,7 +57,7 @@ class EuclideanDistance:
                 print("Goal!!!")
                 print("To solve this problem the search algorithm expanded a total of:", nodes_expanded, "nodes.")
                 print("The maximum number of nodes in the queue at any one time:", max_queue_size)
-                print("The depth of the goal node was:", cost)
+                print("The depth of the goal node was:", int(cost))
                 return cost
             explored.add(state)
             for neighbor in self.get_neighbors(state):
