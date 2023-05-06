@@ -5,7 +5,7 @@ from queue import PriorityQueue
 class MisplacedTile:
     def get_neighbors(self, state):
         neighbors = []
-        index = state.index('0')
+        index = state.index('0') // 3
         if index % 3 > 0:
             # Move left
             neighbor = state[:index - 1] + '0' + state[index - 1] + state[index + 1:]
@@ -23,23 +23,15 @@ class MisplacedTile:
             neighbor = state[:index] + state[index + 3] + state[index + 1:index + 3] + '0' + state[index + 4:]
             neighbors.append(neighbor)
         return neighbors
-    
-    # TODO: finish this function and test
-    # returns h(x) for a given state of the puzzle
-    # sum of the manhattan distances for every misplaced tile
-    def evaluate_heuristic(self, initial_state, goal_state):
-        cost = 0
-        # doesn't test whether initial_state is equal to goal_state
-        # but calculates sum of the manhattan distances for every tile
+      
+    # counts number of misplaced tiles
+    def num_misplaced(self, initial_state, goal_state):
+        misplaced = 0
         for i in range(0,3):
             for j in range(0,3):
-                test = initial_state[i][j]
-                for a in range(0,3):
-                    for b in range(0,3):
-                        correct = goal_state[a][b]
-                        if test == correct: # if tile is in the correct spot, cost = 0
-                            cost += abs(a-i) + abs(b-j)
-        return cost
+                if initial_state[i * 3 + j] != goal_state[i * 3 + j]:
+                    misplaced+=1
+        return misplaced
 
     # TODO: fix for loop
     def a_star_with_misplaced_tile_heuristic(self, initial_state, goal_state):
@@ -58,6 +50,5 @@ class MisplacedTile:
             explored.add(state)
             for neighbor in self.get_neighbors(state):
                 if neighbor not in explored:
-                   frontier.put((cost, neighbor)) 
+                   frontier.put((neighbor, self.num_misplaced(neighbor, goal_state) + 1)) 
         return -1
-        pass
