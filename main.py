@@ -5,7 +5,7 @@ from euclidean_distance import EuclideanDistance
 
 class Problem:
     def __init__(self):
-        self.student_id = "Group 5"
+        self.student_id = "hobra001_linaguz020_smuku004_apena080"
         self.puzzle = []
         self.goal = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '0']]
         self.uniform_cost = UniformCost()
@@ -13,7 +13,7 @@ class Problem:
         self.misplaced_tile = MisplacedTile()
 
     def welcome(self):
-        print(f"Welcome to {self.student_id} 8 puzzle solver\n")  # change xxx this to your student ID
+        print(f"Welcome to {self.student_id} 8 puzzle solver\n")
 
     def get_puzzle(self):
         print("Type “1” to use a default puzzle, or “2” to enter your own puzzle.\n")
