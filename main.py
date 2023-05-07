@@ -9,6 +9,8 @@ class Problem:
         self.goal = ""
         self.uniform_cost = UniformCost()
         self.misplaced_tile = MisplacedTile()
+        self.euclidean_distance = EuclideanDistance()
+
 
     def welcome(self):
         print(f"Welcome to {self.student_id} 8 puzzle solver\n") #change xxx this to your student ID
@@ -61,7 +63,12 @@ class Problem:
             if cost == -1:	
                 print("No solution found")
         elif choice == "3":
-            self.a_star_with_euclidean_distance_heuristic()
+            str_puzzle = ""	
+            for p in self.puzzle:	
+                str_puzzle += "".join(p)	
+            cost = self.euclidean_distance.a_star_with_euclidean_distance_heuristic(str_puzzle, self.goal)	
+            if cost == -1:	
+                print("No solution found")
         else:
             print("Invalid choice")
 
