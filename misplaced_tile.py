@@ -41,17 +41,21 @@ class MisplacedTile:
         frontier_set.add((initial_state, 0))
         explored = set() # initialize explored set to be empty
         expanded = 0 # keep track of expanded nodes
+        max_queue_size = 0
         while not frontier.empty():
             state, cost = frontier.get() # choose a leaf node, also removes from queue
             expanded += 1
             if state == goal_state: # if node contains goal state
                 print("Goal!!!")
                 print("To solve this problem the search algorithm expanded a total of:", expanded, "nodes.")
+                print("The maximum number of nodes in the queue at any one time:", max_queue_size)
                 print("The depth of the goal node was:", cost)
                 return cost
             explored.add(state) # add node to explored set
             for neighbor in self.get_neighbors(state): # expand chosen node
-                if neighbor not in explored and neighbor not in frontier_set: # add resulting nodes to frontier
-                   frontier.put((neighbor, self.num_misplaced(neighbor, goal_state) + 1)) 
-                   frontier_set.add((neighbor, self.num_misplaced(neighbor, goal_state) + 1))
+                if neighbor not in explored: # add resulting nodes to frontier
+                   frontier.put((neighbor, cost + self.num_misplaced(neighbor, goal_state) + 1)) 
+                   frontier_set.add((neighbor, cost + self.num_misplaced(neighbor, goal_state) + 1))
+            if frontier.qsize() >= max_queue_size:
+                max_queue_size = frontier.qsize()
         return -1 #if frontier is empty return -1

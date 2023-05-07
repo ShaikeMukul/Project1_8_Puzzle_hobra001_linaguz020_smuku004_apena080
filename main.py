@@ -8,7 +8,9 @@ class Problem:
         self.puzzle = []
         self.goal = ""
         self.uniform_cost = UniformCost()
+        self.misplaced_tile = MisplacedTile()
         self.euclidean_distance = EuclideanDistance()
+
 
     def welcome(self):
         print(f"Welcome to {self.student_id} 8 puzzle solver\n") #change xxx this to your student ID
@@ -54,7 +56,12 @@ class Problem:
             if cost == -1:	
                 print("No solution found")
         elif choice == "2":
-            self.a_star_with_misplaced_tile_heuristic()
+            str_puzzle = ""	
+            for p in self.puzzle:	
+                str_puzzle += "".join(p)	
+            cost = self.misplaced_tile.a_star_with_misplaced_tile_heuristic(str_puzzle, self.goal)
+            if cost == -1:	
+                print("No solution found")
         elif choice == "3":
             str_puzzle = ""	
             for p in self.puzzle:	
@@ -67,8 +74,6 @@ class Problem:
 
     def get_goal(self):
         self.goal = "123456780"
-
-
 
 if __name__ == "__main__":
     problem = Problem()
